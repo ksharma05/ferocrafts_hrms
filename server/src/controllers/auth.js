@@ -57,15 +57,18 @@ exports.login = asyncHandler(async (req, res, next) => {
 // @route     GET /api/v1/auth/logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
-  res.cookie('accessToken', 'none', {
+  const logoutOptions = {
     expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
-  });
+  };
 
-  res.cookie('refreshToken', 'none', {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
-  });
+  if (process.env.NODE_ENV === 'production') {
+    logoutOptions.secure = true;
+    logoutOptions.sameSite = 'none';
+  }
+
+  res.cookie('accessToken', 'none', logoutOptions);
+  res.cookie('refreshToken', 'none', logoutOptions);
 
   res.status(200).json({
     success: true,
@@ -116,6 +119,7 @@ exports.refreshToken = asyncHandler(async (req, res, next) => {
 
     if (process.env.NODE_ENV === 'production') {
       cookieOptions.secure = true;
+      cookieOptions.sameSite = 'none';
     }
 
     res
@@ -147,6 +151,7 @@ const sendTokenResponse = (user, statusCode, res) => {
 
   if (process.env.NODE_ENV === 'production') {
     options.secure = true;
+    options.sameSite = 'none';
   }
 
   res
