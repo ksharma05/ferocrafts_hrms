@@ -53,19 +53,40 @@ exports.login = asyncHandler(async (req, res, next) => {
   sendTokenResponse(user, 200, res);
 });
 
+const getCookieOptions = (expiresOverride) => {
+  const expireDays = parseInt(process.env.JWT_COOKIE_EXPIRE) || 7;
+  const options = {
+    expires: expiresOverride || new Date(Date.now() + expireDays * 24 * 60 * 60 * 1000),
+    httpOnly: true,
+  };
+
+  const sameSite = process.env.COOKIE_SAMESITE || (process.env.NODE_ENV === 'production' ? 'none' : 'lax');
+  const secure = process.env.COOKIE_SECURE
+    ? process.env.COOKIE_SECURE === 'true'
+    : process.env.NODE_ENV === 'production';
+
+  if (sameSite) {
+    options.sameSite = sameSite;
+  }
+
+  if (sameSite === 'none') {
+    options.secure = true;
+  } else {
+    options.secure = secure;
+  }
+
+  if (process.env.COOKIE_DOMAIN) {
+    options.domain = process.env.COOKIE_DOMAIN;
+  }
+
+  return options;
+};
+
 // @desc      Log user out / clear cookie
 // @route     GET /api/v1/auth/logout
 // @access    Private
 exports.logout = asyncHandler(async (req, res, next) => {
-  const logoutOptions = {
-    expires: new Date(Date.now() + 10 * 1000),
-    httpOnly: true,
-  };
-
-  if (process.env.NODE_ENV === 'production') {
-    logoutOptions.secure = true;
-    logoutOptions.sameSite = 'none';
-  }
+  const logoutOptions = getCookieOptions(new Date(Date.now() + 10 * 1000));
 
   res.cookie('accessToken', 'none', logoutOptions);
   res.cookie('refreshToken', 'none', logoutOptions);
@@ -111,16 +132,7 @@ exports.refreshToken = asyncHandler(async (req, res, next) => {
     // Optionally rotate refresh token (security best practice)
     const newRefreshToken = user.getSignedRefreshToken();
 
-    const expireDays = parseInt(process.env.JWT_COOKIE_EXPIRE) || 7;
-    const cookieOptions = {
-      expires: new Date(Date.now() + expireDays * 24 * 60 * 60 * 1000),
-      httpOnly: true,
-    };
-
-    if (process.env.NODE_ENV === 'production') {
-      cookieOptions.secure = true;
-      cookieOptions.sameSite = 'none';
-    }
+    const cookieOptions = getCookieOptions();
 
     res
       .status(200)
@@ -141,18 +153,7 @@ const sendTokenResponse = (user, statusCode, res) => {
   const accessToken = user.getSignedAccessToken();
   const refreshToken = user.getSignedRefreshToken();
 
-  const expireDays = parseInt(process.env.JWT_COOKIE_EXPIRE) || 7;
-  const options = {
-    expires: new Date(
-      Date.now() + expireDays * 24 * 60 * 60 * 1000
-    ),
-    httpOnly: true,
-  };
-
-  if (process.env.NODE_ENV === 'production') {
-    options.secure = true;
-    options.sameSite = 'none';
-  }
+  const options = getCookieOptions();
 
   res
     .status(statusCode)
