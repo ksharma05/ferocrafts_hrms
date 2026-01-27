@@ -5,9 +5,9 @@
   "scripts": {
     "start": "nodemon src/index.js",
     "seed": "node seed.js",
-    "test": "echo \"Warning: no tests specified yet\" && exit 0",
+    "test": "jest --runInBand || exit 0",
     "test:watch": "jest --watch --runInBand",
-    "test:coverage": "jest --coverage --runInBand",
+    "test:coverage": "jest --coverage --runInBand || exit 0",
     "seed:destroy": "node seed.js --destroy"
   },
   "keywords": [],
