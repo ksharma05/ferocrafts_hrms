@@ -23,8 +23,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: server/package-lock.json
+          # Temporarily disabled cache to force fresh install
+          # cache: 'npm'
+          # cache-dependency-path: server/package-lock.json
 
       - name: Install dependencies
         working-directory: ./server
@@ -69,8 +70,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-          cache-dependency-path: client/package-lock.json
+          # Temporarily disabled cache to force fresh install
+          # cache: 'npm'
+          # cache-dependency-path: client/package-lock.json
 
       - name: Install dependencies
         working-directory: ./client
@@ -129,9 +131,17 @@ jobs:
         with:
           node-version: '20.x'
 
+      - name: Install backend dependencies
+        working-directory: ./server
+        run: npm ci
+
       - name: Backend security audit
         working-directory: ./server
         run: npm audit --audit-level=moderate
+
+      - name: Install frontend dependencies
+        working-directory: ./client
+        run: npm ci
 
       - name: Frontend security audit
         working-directory: ./client
