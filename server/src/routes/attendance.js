@@ -35,11 +35,11 @@ router
 
 router
   .route('/:id/approve')
-  .put(protect, authorize('manager'), validate(approveRejectSchema), approveAttendance);
+  .put(protect, authorize('admin', 'manager'), validate(approveRejectSchema), approveAttendance);
 
 router
   .route('/:id/reject')
-  .put(protect, authorize('manager'), validate(approveRejectSchema), rejectAttendance);
+  .put(protect, authorize('admin', 'manager'), validate(approveRejectSchema), rejectAttendance);
 
 router
   .route('/:id/alter')
