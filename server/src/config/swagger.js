@@ -1,5 +1,28 @@
 const swaggerJsdoc = require('swagger-jsdoc');
 
+const getServerUrls = () => {
+  const port = process.env.PORT || 5000;
+  const devUrl = `http://localhost:${port}/api/v1`;
+  const baseUrl = process.env.BASE_URL ? process.env.BASE_URL.replace(/\/$/, '') : null;
+  const prodUrl = baseUrl ? `${baseUrl}/api/v1` : null;
+
+  const servers = [
+    {
+      url: devUrl,
+      description: 'Development server',
+    },
+  ];
+
+  if (prodUrl) {
+    servers.push({
+      url: prodUrl,
+      description: 'Configured server',
+    });
+  }
+
+  return servers;
+};
+
 const options = {
   definition: {
     openapi: '3.0.0',
@@ -12,16 +35,7 @@ const options = {
         email: 'support@ferocrafts.com',
       },
     },
-    servers: [
-      {
-        url: 'http://localhost:5000/api/v1',
-        description: 'Development server',
-      },
-      {
-        url: 'https://api.ferocrafts.com/api/v1',
-        description: 'Production server',
-      },
-    ],
+    servers: getServerUrls(),
     components: {
       securitySchemes: {
         bearerAuth: {

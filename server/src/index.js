@@ -41,6 +41,11 @@ verifyEmailConfig();
 
 const app = express();
 
+// Trust proxy headers (needed behind Render/NGINX for rate limiting, etc.)
+if (process.env.TRUST_PROXY === 'true' || process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1);
+}
+
 // Serve static files (uploaded files and PDFs)
 app.use('/uploads', express.static('uploads'));
 app.use('/pdfs', express.static('pdfs'));
