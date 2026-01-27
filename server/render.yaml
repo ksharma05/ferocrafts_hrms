@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: ferocrafts-hrms-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: node src/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: JWT_COOKIE_EXPIRE
+        value: 7
+      - key: CLIENT_URL
+        sync: false
+      - key: BASE_URL
+        sync: false
+

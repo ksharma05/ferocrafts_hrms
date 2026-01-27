@@ -1,0 +1,17 @@
+{
+  "name": "ferocraftshrms",
+  "version": "1.0.0",
+  "description": "A comprehensive Human Resource Management System for managing employees, attendance tracking, and payroll processing.",
+  "main": "index.js",
+  "scripts": {
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:e2e:report": "playwright show-report"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}

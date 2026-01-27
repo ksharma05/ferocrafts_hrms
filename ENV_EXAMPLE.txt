@@ -1,0 +1,53 @@
+# ==========================================
+# QUICK START - Copy these to server/.env
+# ==========================================
+
+NODE_ENV=development
+PORT=5000
+
+# Your MongoDB connection
+MONGO_URI=your_mongodb_connection_string
+
+# Generate with: node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+JWT_SECRET=your_jwt_secret_at_least_32_characters
+JWT_REFRESH_SECRET=your_refresh_secret_at_least_32_characters
+
+# Frontend URL
+CLIENT_URL=http://localhost:5173
+
+# ==========================================
+# EMAIL CONFIGURATION (Choose One)
+# ==========================================
+
+# Option 1: Gmail (Easiest for Development)
+# Get app password: https://myaccount.google.com/apppasswords
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-email@gmail.com
+SMTP_PASS=your-16-char-app-password
+EMAIL_FROM_NAME=FeroCrafts HRMS
+
+# Option 2: Mailtrap (Best for Testing)
+# Sign up: https://mailtrap.io
+# SMTP_HOST=smtp.mailtrap.io
+# SMTP_PORT=2525
+# SMTP_SECURE=false
+# SMTP_USER=your-mailtrap-username
+# SMTP_PASS=your-mailtrap-password
+# EMAIL_FROM_NAME=FeroCrafts HRMS
+
+# Option 3: SendGrid (Best for Production)
+# Sign up: https://sendgrid.com
+# SMTP_HOST=smtp.sendgrid.net
+# SMTP_PORT=587
+# SMTP_SECURE=false
+# SMTP_USER=apikey
+# SMTP_PASS=your-sendgrid-api-key
+# EMAIL_FROM_NAME=FeroCrafts HRMS
+
+# ==========================================
+# That's all you need! 🎉
+# See EMAIL_SETUP_GUIDE.md for more details
+# ==========================================
+
