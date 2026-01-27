@@ -58,8 +58,12 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Attempt to refresh the token
-        await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true });
+        // Attempt to refresh the token using the full base URL
+        const refreshURL = import.meta.env.VITE_API_BASE_URL 
+          ? `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/refresh`
+          : '/api/v1/auth/refresh';
+        
+        await axios.post(refreshURL, {}, { withCredentials: true });
 
         // Token refreshed successfully, process queued requests
         processQueue(null);
