@@ -68,7 +68,7 @@ export const payoutSlice = createSlice({
   name: 'payout',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -104,7 +104,7 @@ export const payoutSlice = createSlice({
       .addCase(getPayoutSlip.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getPayoutSlip.fulfilled, (state, action) => {
+      .addCase(getPayoutSlip.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })

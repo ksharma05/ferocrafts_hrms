@@ -9,10 +9,8 @@ function CheckIn() {
   const dispatch = useDispatch();
   const { isLoading } = useSelector((state) => state.attendance);
   const [showCamera, setShowCamera] = useState(false);
-  const [selfieBlob, setSelfieBlob] = useState(null);
 
   const handleCapturePhoto = (blob) => {
-    setSelfieBlob(blob);
     setShowCamera(false);
     // Proceed with check-in
     processCheckIn(blob);

@@ -86,7 +86,7 @@ export const attendanceSlice = createSlice({
   name: 'attendance',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder

@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import axiosInstance from '../services/axiosInstance';
 import AttendanceAlterationForm from '../components/AttendanceAlterationForm';
@@ -11,7 +10,6 @@ import Spinner from '../components/Spinner';
  */
 
 function AttendanceApproval() {
-  const { user } = useSelector((state) => state.auth);
   const [attendances, setAttendances] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [filter, setFilter] = useState('pending');

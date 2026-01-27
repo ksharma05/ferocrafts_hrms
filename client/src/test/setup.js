@@ -1,4 +1,4 @@
-import { expect, afterEach, vi } from 'vitest';
+import { afterEach, vi } from 'vitest';
 import { cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
@@ -23,13 +23,13 @@ Object.defineProperty(window, 'matchMedia', {
 });
 
 // Mock navigator.geolocation
-global.navigator.geolocation = {
+globalThis.navigator.geolocation = {
   getCurrentPosition: vi.fn(),
   watchPosition: vi.fn(),
 };
 
 // Mock navigator.mediaDevices
-global.navigator.mediaDevices = {
+globalThis.navigator.mediaDevices = {
   getUserMedia: vi.fn(),
 };
 

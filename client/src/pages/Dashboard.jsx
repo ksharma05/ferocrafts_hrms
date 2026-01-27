@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-toastify';
 import { getCurrentSite } from '../features/sites/siteSlice';
 import CheckIn from '../components/CheckIn';
 import CheckOut from '../components/CheckOut';

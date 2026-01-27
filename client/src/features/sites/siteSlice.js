@@ -142,7 +142,7 @@ export const siteSlice = createSlice({
   name: 'site',
   initialState,
   reducers: {
-    reset: (state) => initialState,
+    reset: () => initialState,
   },
   extraReducers: (builder) => {
     builder
@@ -194,7 +194,7 @@ export const siteSlice = createSlice({
       .addCase(assignEmployeeToSite.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(assignEmployeeToSite.fulfilled, (state, action) => {
+      .addCase(assignEmployeeToSite.fulfilled, (state) => {
         state.isLoading = false;
         state.isSuccess = true;
       })

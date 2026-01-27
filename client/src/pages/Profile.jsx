@@ -18,7 +18,7 @@ function Profile() {
   const fileInputRef = useRef(null);
 
   const { user } = useSelector((state) => state.auth);
-  const { profile, isLoading, isError, isSuccess, message } = useSelector(
+  const { profile, isLoading, isError, message } = useSelector(
     (state) => state.profile
   );
 

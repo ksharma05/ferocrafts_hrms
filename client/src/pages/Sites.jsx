@@ -13,6 +13,7 @@ function Sites() {
   const [showAssignmentForm, setShowAssignmentForm] = useState(false);
   const [showEmployeesModal, setShowEmployeesModal] = useState(false);
   const [selectedSite, setSelectedSite] = useState(null);
+  const [editingSite, setEditingSite] = useState(null);
   const [loadingEmployees, setLoadingEmployees] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { sites, isLoading, isError, message, isSuccess, siteEmployees } = useSelector(
