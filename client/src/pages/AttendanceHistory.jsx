@@ -11,7 +11,7 @@ function AttendanceHistory() {
     startDate: '',
     endDate: '',
   });
-  const { attendances, isLoading, isError, message } = useSelector(
+  const { attendances = [], isLoading, isError, message } = useSelector(
     (state) => state.attendance
   );
 

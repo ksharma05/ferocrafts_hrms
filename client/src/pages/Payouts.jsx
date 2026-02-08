@@ -16,8 +16,8 @@ function Payouts() {
     period: '',
   });
   const { user } = useSelector((state) => state.auth);
-  const { employees } = useSelector((state) => state.employee);
-  const { payouts, isLoading, isError, message, isSuccess } = useSelector(
+  const { employees = [] } = useSelector((state) => state.employee);
+  const { payouts = [], isLoading, isError, message, isSuccess } = useSelector(
     (state) => state.payout
   );
 

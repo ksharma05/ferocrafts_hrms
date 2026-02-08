@@ -78,7 +78,7 @@ export const payoutSlice = createSlice({
       .addCase(getPayoutHistory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.payouts = action.payload;
+        state.payouts = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getPayoutHistory.rejected, (state, action) => {
         state.isLoading = false;

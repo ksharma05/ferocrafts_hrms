@@ -16,7 +16,7 @@ function Sites() {
   const [editingSite, setEditingSite] = useState(null);
   const [loadingEmployees, setLoadingEmployees] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const { sites, isLoading, isError, message, isSuccess, siteEmployees } = useSelector(
+  const { sites = [], isLoading, isError, message, isSuccess, siteEmployees = [] } = useSelector(
     (state) => state.site
   );
 

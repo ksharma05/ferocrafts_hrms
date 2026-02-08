@@ -152,7 +152,7 @@ export const siteSlice = createSlice({
       .addCase(getSites.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.sites = action.payload;
+        state.sites = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getSites.rejected, (state, action) => {
         state.isLoading = false;
@@ -222,7 +222,7 @@ export const siteSlice = createSlice({
       .addCase(getWorkHistory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.workHistory = action.payload;
+        state.workHistory = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getWorkHistory.rejected, (state, action) => {
         state.isLoading = false;
@@ -235,7 +235,7 @@ export const siteSlice = createSlice({
       .addCase(getSiteEmployees.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.siteEmployees = action.payload;
+        state.siteEmployees = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getSiteEmployees.rejected, (state, action) => {
         state.isLoading = false;

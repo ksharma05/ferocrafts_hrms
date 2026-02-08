@@ -7,7 +7,7 @@ import Spinner from '../components/Spinner';
 
 function WorkHistory() {
   const dispatch = useDispatch();
-  const { workHistory, isLoading, isError, message } = useSelector(
+  const { workHistory = [], isLoading, isError, message } = useSelector(
     (state) => state.site
   );
 

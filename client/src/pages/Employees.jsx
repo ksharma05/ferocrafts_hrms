@@ -21,7 +21,7 @@ function Employees() {
   const [deletingEmployee, setDeletingEmployee] = useState(null);
 
   const { user } = useSelector((state) => state.auth);
-  const { employees, isLoading, isError, message, isSuccess } = useSelector(
+  const { employees = [], isLoading, isError, message, isSuccess } = useSelector(
     (state) => state.employee
   );
 

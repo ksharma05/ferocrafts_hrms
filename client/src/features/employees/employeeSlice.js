@@ -115,7 +115,7 @@ export const employeeSlice = createSlice({
       .addCase(getEmployees.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.employees = action.payload;
+        state.employees = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getEmployees.rejected, (state, action) => {
         state.isLoading = false;

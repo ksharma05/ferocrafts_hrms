@@ -12,8 +12,8 @@ function Admin() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
-  const { employees } = useSelector((state) => state.employee);
-  const { sites } = useSelector((state) => state.site);
+  const { employees = [] } = useSelector((state) => state.employee);
+  const { sites = [] } = useSelector((state) => state.site);
   const [showRegisterForm, setShowRegisterForm] = useState(false);
   const [stats, setStats] = useState({
     totalEmployees: 0,

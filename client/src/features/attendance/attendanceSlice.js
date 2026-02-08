@@ -126,7 +126,7 @@ export const attendanceSlice = createSlice({
       .addCase(getAttendanceHistory.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.attendances = action.payload;
+        state.attendances = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(getAttendanceHistory.rejected, (state, action) => {
         state.isLoading = false;
