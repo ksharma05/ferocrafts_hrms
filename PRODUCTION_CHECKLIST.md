@@ -53,8 +53,7 @@ Complete this checklist before deploying to production.
 ## ✅ Infrastructure
 
 ### Deployment
-- [x] Docker image built
-- [x] Docker Compose configured
+- [x] Cloud deployment configured
 - [x] Health check endpoint working
 - [x] Graceful shutdown implemented
 - [ ] Environment-specific configs

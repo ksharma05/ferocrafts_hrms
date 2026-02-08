@@ -64,7 +64,7 @@ git push -u origin main
    - **Branch**: `main`
    - **Root Directory**: `server`
    - **Runtime**: Node
-   - **Build Command**: `npm install`ferocrafts_hrms
+   - **Build Command**: `npm install`
    - **Start Command**: `node src/index.js`
    - **Instance Type**: Free
 

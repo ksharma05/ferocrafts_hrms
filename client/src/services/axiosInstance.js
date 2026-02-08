@@ -4,10 +4,9 @@ import axios from 'axios';
  * Axios instance with automatic token refresh and error handling
  */
 
-// Use environment variable for API base URL in production, or default to local proxy
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL 
-  ? `${import.meta.env.VITE_API_BASE_URL}/api/v1`
-  : '/api/v1';
+// Always use relative path — Vercel rewrites proxy /api/* to the backend,
+// making cookies first-party (no third-party cookie issues)
+const API_BASE_URL = '/api/v1';
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -58,12 +57,8 @@ axiosInstance.interceptors.response.use(
       isRefreshing = true;
 
       try {
-        // Attempt to refresh the token using the full base URL
-        const refreshURL = import.meta.env.VITE_API_BASE_URL 
-          ? `${import.meta.env.VITE_API_BASE_URL}/api/v1/auth/refresh`
-          : '/api/v1/auth/refresh';
-        
-        await axios.post(refreshURL, {}, { withCredentials: true });
+        // Attempt to refresh the token (same-origin via Vercel proxy)
+        await axios.post('/api/v1/auth/refresh', {}, { withCredentials: true });
 
         // Token refreshed successfully, process queued requests
         processQueue(null);

@@ -84,20 +84,7 @@ BASE_URL=https://your-backend-domain.com
 
 ### 5. Build and Deploy
 
-#### Option A: Docker Deployment (Recommended)
-
-```bash
-# 1. Build Docker image
-docker build -t ferocrafts-hrms:latest .
-
-# 2. Run with docker-compose
-docker-compose up -d
-
-# 3. Check logs
-docker-compose logs -f
-```
-
-#### Option B: Railway
+#### Option A: Railway
 
 ```bash
 # 1. Install Railway CLI
@@ -119,7 +106,7 @@ railway variables set BASE_URL=<your-backend-url>
 railway up
 ```
 
-#### Option C: Render
+#### Option B: Render
 
 1. Connect GitHub repository
 2. Create new Web Service
@@ -171,7 +158,7 @@ The following mobile responsiveness issues have been addressed:
 - [x] Error handling
 - [x] Request logging (Winston)
 - [x] Health check endpoint
-- [x] Docker configuration
+- [x] Cloud deployment configuration
 - [x] Database indexes
 - [x] API documentation (Swagger)
 - [x] File upload validation
@@ -253,12 +240,6 @@ curl -I -X OPTIONS https://your-domain.com/api/v1/auth/login \
 
 If deployment fails:
 
-**Docker:**
-```bash
-docker-compose down
-docker-compose up -d  # Reverts to previous image if no new build
-```
-
 **Railway/Render:**
 - Use dashboard to rollback to previous deployment
 - Or redeploy from a specific commit
@@ -308,7 +289,7 @@ Recommended:
 3. ✅ Configure all environment variables
 4. ⚠️ Re-enable XSS protection (or find alternative)
 5. ⚠️ Re-enable MongoDB sanitization
-6. ✅ Build Docker image or deploy to cloud
+6. ✅ Deploy to cloud platform
 7. ✅ Test all critical features
 8. ✅ Set up monitoring
 9. ✅ Configure SSL/HTTPS

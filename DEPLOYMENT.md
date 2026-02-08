@@ -6,7 +6,6 @@ This guide covers deployment of FeroCrafts HRMS to various platforms.
 
 - [Prerequisites](#prerequisites)
 - [Environment Variables](#environment-variables)
-- [Docker Deployment](#docker-deployment)
 - [Cloud Deployment](#cloud-deployment)
   - [Railway](#railway)
   - [Render](#render)
@@ -18,10 +17,10 @@ This guide covers deployment of FeroCrafts HRMS to various platforms.
 
 ## Prerequisites
 
-- Docker and Docker Compose (for Docker deployment)
 - MongoDB Atlas account (for cloud database)
 - Domain name (optional, for custom domain)
 - Git repository
+- Node.js 20+ installed (for local development)
 
 ## Environment Variables
 
@@ -61,81 +60,6 @@ SENTRY_DSN=your_sentry_dsn
 CLOUDINARY_CLOUD_NAME=your_cloud_name
 CLOUDINARY_API_KEY=your_api_key
 CLOUDINARY_API_SECRET=your_api_secret
-```
-
-## Docker Deployment
-
-### 1. Build and Run with Docker Compose
-
-```bash
-# Clone repository
-git clone <your-repo-url>
-cd FeroCraftsHRMS
-
-# Create .env file
-cp .env.example .env
-# Edit .env with your values
-
-# Build and start services
-docker-compose up -d
-
-# View logs
-docker-compose logs -f
-
-# Stop services
-docker-compose down
-```
-
-### 2. Build Docker Image Manually
-
-```bash
-# Build image
-docker build -t ferocrafts-hrms:latest .
-
-# Run container
-docker run -d \
-  -p 5000:5000 \
-  --env-file .env \
-  --name ferocrafts-app \
-  ferocrafts-hrms:latest
-```
-
-### 3. Production Docker Compose
-
-For production, use `docker-compose.prod.yml`:
-
-```yaml
-version: '3.8'
-
-services:
-  app:
-    image: ferocrafts-hrms:latest
-    restart: always
-    ports:
-      - "5000:5000"
-    environment:
-      - NODE_ENV=production
-    env_file:
-      - .env
-    depends_on:
-      - mongodb
-    healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:5000/health')"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-
-  mongodb:
-    image: mongo:7
-    restart: always
-    volumes:
-      - mongodb_data:/data/db
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
-      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
-
-volumes:
-  mongodb_data:
 ```
 
 ## Cloud Deployment
@@ -185,7 +109,10 @@ Render offers free tier with limitations.
    - Connect your GitHub repository
    - Configure:
      - Name: `ferocrafts-hrms`
-     - Environment: `Docker`
+     - Environment: `Node`
+     - Root Directory: `server`
+     - Build Command: `npm install`
+     - Start Command: `node src/index.js`
      - Region: Choose closest to your users
      - Branch: `main`
 
@@ -344,9 +271,6 @@ Use free services:
 
 1. **Logs**:
    ```bash
-   # View logs (Docker)
-   docker-compose logs -f app
-
    # View logs (Railway)
    railway logs
 

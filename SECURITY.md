@@ -74,8 +74,7 @@ Include:
 
 ### Infrastructure
 
-- ✅ Docker containerization
-- ✅ Non-root user in containers
+- ✅ Cloud deployment configuration
 - ✅ Health checks
 - ✅ Graceful shutdown
 - ✅ Log rotation

@@ -3,6 +3,22 @@
   "outputDirectory": "dist",
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://ferocrafts-hrms.onrender.com/api/:path*"
+    },
+    {
+      "source": "/uploads/:path*",
+      "destination": "https://ferocrafts-hrms.onrender.com/uploads/:path*"
+    },
+    {
+      "source": "/pdfs/:path*",
+      "destination": "https://ferocrafts-hrms.onrender.com/pdfs/:path*"
+    },
+    {
+      "source": "/health",
+      "destination": "https://ferocrafts-hrms.onrender.com/health"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
