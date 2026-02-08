@@ -1,26 +1,29 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "rewrites": [
+  "routes": [
     {
-      "source": "/api/:path*",
-      "destination": "https://ferocrafts-hrms.onrender.com/api/:path*"
+      "src": "/api/(.*)",
+      "dest": "https://ferocrafts-hrms.onrender.com/api/$1"
     },
     {
-      "source": "/uploads/:path*",
-      "destination": "https://ferocrafts-hrms.onrender.com/uploads/:path*"
+      "src": "/uploads/(.*)",
+      "dest": "https://ferocrafts-hrms.onrender.com/uploads/$1"
     },
     {
-      "source": "/pdfs/:path*",
-      "destination": "https://ferocrafts-hrms.onrender.com/pdfs/:path*"
+      "src": "/pdfs/(.*)",
+      "dest": "https://ferocrafts-hrms.onrender.com/pdfs/$1"
     },
     {
-      "source": "/health",
-      "destination": "https://ferocrafts-hrms.onrender.com/health"
+      "src": "/health",
+      "dest": "https://ferocrafts-hrms.onrender.com/health"
     },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
