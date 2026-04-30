@@ -115,10 +115,6 @@ function Dashboard() {
     ? payouts.reduce((sum, p) => sum + (p.netPay || 0), 0)
     : 0;
 
-  const totalDaysWorked = Array.isArray(payouts)
-    ? payouts.reduce((sum, p) => sum + (p.totalDaysWorked || 0), 0)
-    : 0;
-
   const wageRatePerMonth = site?.wageRatePerMonth || 0;
   const wageRatePerDay = site?.wageRatePerDay || 0;
   const approvedDays = monthSummary?.approvedDays || 0;
@@ -217,7 +213,7 @@ function Dashboard() {
             <StatCard
               label="Total Earned"
               value={formatINR(totalEarned)}
-              sub={totalDaysWorked > 0 ? `${totalDaysWorked} days on record` : 'No payouts yet'}
+              sub={Array.isArray(payouts) && payouts.length > 0 ? `across ${payouts.length} payout${payouts.length !== 1 ? 's' : ''}` : 'No payouts yet'}
               accent="indigo"
               icon={
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -237,9 +233,9 @@ function Dashboard() {
               }
             />
             <StatCard
-              label="Days Worked"
-              value={totalDaysWorked}
-              sub="from processed payouts"
+              label="Days Worked (This Month)"
+              value={monthSummary?.totalDays || 0}
+              sub={`${approvedDays} approved · ${monthSummary?.pendingDays || 0} pending`}
               accent="amber"
               icon={
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
