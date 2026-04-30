@@ -4,6 +4,7 @@ import attendanceService from './attendanceService';
 const initialState = {
   attendances: [],
   attendance: {},
+  monthSummary: { approvedDays: 0, pendingDays: 0, totalDays: 0 },
   isError: false,
   isSuccess: false,
   isLoading: false,
@@ -52,6 +53,24 @@ export const getAttendanceHistory = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       return await attendanceService.getAttendanceHistory();
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.error) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// Get current month summary
+export const getCurrentMonthSummary = createAsyncThunk(
+  'attendance/getCurrentMonthSummary',
+  async (_, thunkAPI) => {
+    try {
+      return await attendanceService.getCurrentMonthSummary();
     } catch (error) {
       const message =
         (error.response &&
@@ -150,6 +169,9 @@ export const attendanceSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
+      })
+      .addCase(getCurrentMonthSummary.fulfilled, (state, action) => {
+        state.monthSummary = action.payload;
       });
   },
 });

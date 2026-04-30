@@ -7,6 +7,7 @@ const {
   rejectAttendance,
   alterAttendance,
   getAttendanceHistory,
+  getCurrentMonthSummary,
 } = require('../controllers/attendance');
 const validate = require('../middleware/validate');
 const { checkInSchema, alterAttendanceSchema, approveRejectSchema } = require('../validators/attendance.validator');
@@ -28,6 +29,7 @@ router.route('/check-in').post(
 );
 router.route('/check-out').post(protect, authorize('employee'), checkOut);
 router.route('/history').get(protect, authorize('employee'), getAttendanceHistory);
+router.route('/current-month-summary').get(protect, authorize('employee'), getCurrentMonthSummary);
 
 router
   .route('/pending')

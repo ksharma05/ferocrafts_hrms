@@ -185,3 +185,26 @@ exports.getAttendanceHistory = asyncHandler(async (req, res, next) => {
     data: attendance,
   });
 });
+
+// @desc      Get current month attendance summary for the logged-in employee
+// @route     GET /api/v1/attendance/current-month-summary
+// @access    Private (Employee)
+exports.getCurrentMonthSummary = asyncHandler(async (req, res, next) => {
+  const now = new Date();
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  const endOfMonth = new Date(now.getFullYear(), now.getMonth() + 1, 0, 23, 59, 59, 999);
+
+  const records = await Attendance.find({
+    employeeId: req.user.id,
+    date: { $gte: startOfMonth, $lte: endOfMonth },
+  });
+
+  const approvedDays = records.filter((r) => r.status === 'approved').length;
+  const pendingDays = records.filter((r) => r.status === 'pending').length;
+  const totalDays = records.length;
+
+  res.status(200).json({
+    success: true,
+    data: { approvedDays, pendingDays, totalDays },
+  });
+});

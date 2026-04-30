@@ -34,11 +34,18 @@ const alterAttendance = async (id, alterationData) => {
   return response.data.data;
 };
 
+// Get current month attendance summary
+const getCurrentMonthSummary = async () => {
+  const response = await axiosInstance.get(API_URL + 'current-month-summary');
+  return response.data.data;
+};
+
 const attendanceService = {
   checkIn,
   checkOut,
   getAttendanceHistory,
   alterAttendance,
+  getCurrentMonthSummary,
 };
 
 export default attendanceService;
